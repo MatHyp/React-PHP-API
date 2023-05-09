@@ -38,7 +38,7 @@
 
 .products-list {
   width: 60vw;
-  height: 100px;
+
   display: flex;
   margin: 20px auto;
   /* background-color: red; */
@@ -55,4 +55,21 @@
 }
 
 .delete-checkbox {
+}
+
+.foot {
+  height: 5vh;
+  width: 100vw;
+  text-align: center;
+  background-color: brown;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foot p {
+  font-size: 16px;
+  color: white;
+  font-weight: 300;
+  font-family: "Poppins";
 }

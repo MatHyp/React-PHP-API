@@ -1,5 +1,6 @@
 import axios from "axios";
 import HomePage from "./pages/HomePage/HomePage";
+import AddProductPage from "./pages/AddProductPage/AddProductPage";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -10,6 +11,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+        </Routes>
+        <Routes>
+          <Route path="/addProductPage" element={<AddProductPage />} />
         </Routes>
       </BrowserRouter>
     </div>

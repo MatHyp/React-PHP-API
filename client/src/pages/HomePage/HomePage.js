@@ -26,7 +26,9 @@ const HomePage = () => {
       <div className="navbar">
         <h1>Product List</h1>
         <div className="buttons-contianer">
-          <button className="button button-add">ADD</button>
+          <a href="/addProductPage">
+            <button className="button button-add">ADD</button>
+          </a>
           <button className="button button-remove" id="delete-product-btn">
             MASS DELATE
           </button>
@@ -44,6 +46,11 @@ const HomePage = () => {
           </div>
         );
       })}
+
+      <footer className="foot">
+        {" "}
+        <p>Scandiweb Test assigment</p>
+      </footer>
     </div>
   );
 };
