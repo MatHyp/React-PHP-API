@@ -10,7 +10,7 @@ require('./controllers/ProductController.php');
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
-if ($parts[3] != "products" && $parts[3] != "removeProducts") {
+if ($parts[3] != "products" && $parts[3] != "removeProducts" && $parts[3] != "addProducts") {
     http_response_code(404);
     exit;
 }
@@ -23,12 +23,12 @@ switch ($parts[3]) {
 
         echo $productController->getAllProducts();
         break;
+    case "addProducts":
+
+        echo $productController->addProduct();
+        break;
     case "removeProducts":
 
-
         echo $productController->massDelate();
-
-
-
         break;
 }

@@ -27,6 +27,16 @@ class Product
 
     public function addProduct()
     {
+        $productSku = filter_var($this->getData('sku'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $productName = filter_var($this->getData('name'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $productPrice = filter_var($this->getData('price'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $productType = filter_var($this->getData('type'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $productAttribute = filter_var($this->getData('attribute'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+        $result = $this->mysqli->query("INSERT INTO `products` (`sku`, `name`, `price`, `type`, `attribute`) VALUES ('$productSku',  '$productName', '$productPrice', '$productType', '$productAttribute')");
+
+        return json_encode($result);
     }
 
     public function massDelate()
