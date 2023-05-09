@@ -1,33 +1,17 @@
 import axios from "axios";
+import HomePage from "./pages/HomePage/HomePage";
+import React from "react";
+import ReactDOM from "react-dom";
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
-  const handleSubmit = async (e) => {
-    var data = {
-      name: "John Doe",
-      email: "johndoe@example.com",
-    };
-
-    const response = await fetch(
-      "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/removeProducts",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-
-        body: JSON.stringify(data),
-      }
-    );
-
-    const test = await response.json();
-
-    console.log(test);
-  };
-
   return (
     <div className="App">
-      <input
-        type="submit"
-        onClick={handleSubmit}
-      />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
