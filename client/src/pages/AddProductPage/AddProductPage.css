@@ -1,7 +1,11 @@
-/* .navbar {
-  width: 100vw;
-  height: 50vh;
-  background-color: red;
+.form {
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.item {
+  width: 15vw;
   display: flex;
-  text-align: center;
-} */
+  margin: 10px 0;
+  justify-content: space-between;
+}
