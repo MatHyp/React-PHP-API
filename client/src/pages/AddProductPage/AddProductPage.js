@@ -1,16 +1,50 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import "./AddProductPage.css";
+
 const AddProductPage = () => {
   const options = [
     { value: "", text: "Type Switcher" },
-    { value: "DVD", text: "DVD" },
-    { value: "Furniture", text: "Furniture" },
-    { value: "Book", text: "Book" },
+    { value: "1", text: "DVD" },
+    { value: "2", text: "Furniture" },
+    { value: "3", text: "Book" },
   ];
-
   const [selected, setSelected] = useState(options[0].value);
-  const [type, setType] = useState();
+  const [sku, setSku] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+
+  const [kg_mb, setKg_mb] = useState("");
+
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [lenght, setLenght] = useState("");
+
+  const handleSubmit = async (e) => {
+    let testt;
+    selected === "1" || selected === "3"
+      ? (testt = kg_mb)
+      : (testt = `${height}x${weight}x${lenght}`);
+
+    const response = await fetch(
+      "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/addProducts",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+
+        body: JSON.stringify({
+          sku: sku,
+          name: name,
+          price: price,
+          type: parseInt(selected),
+          attribute: testt,
+        }),
+      }
+    );
+
+    const test = await response.json();
+
+    console.log(test);
+  };
 
   const handleChange = (event) => {
     setSelected(event.target.value);
@@ -19,11 +53,17 @@ const AddProductPage = () => {
   const DvdInput = () => {
     return (
       <>
-        <div className="item">
+        {/* <div className="item">
           <p>Size (MB)</p>
-          <input id="size" type="text" />
+          <input
+            id="size"
+            type="text"
+            onChange={(e) => {
+              setKg_mb(e.target.value);
+            }}
+          />
         </div>
-        <p>Please, provide disc space in MB</p>
+        <p>Please, provide disc space in MB</p> */}
       </>
     );
   };
@@ -33,15 +73,34 @@ const AddProductPage = () => {
       <>
         <div className="item">
           <p>Height (CM)</p>
-          <input id="height" type="text" />
+          <input
+            id="height"
+            type="text"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setHeight(e.target.value);
+            }}
+          />
         </div>
         <div className="item">
           <p>Width (CM)</p>
-          <input id="width" type="text" />
+          <input
+            id="width"
+            type="text"
+            onChange={(e) => {
+              setWeight(e.target.value);
+            }}
+          />
         </div>
         <div className="item">
           <p>Lenght (CM)</p>
-          <input id="lenght" type="text" />
+          <input
+            id="lenght"
+            type="text"
+            onChange={(e) => {
+              setLenght(e.target.value);
+            }}
+          />
         </div>
         <p>Please, provide dimensions in HxWxL format</p>
       </>
@@ -53,7 +112,13 @@ const AddProductPage = () => {
       <>
         <div className="item">
           <p>Weight (KG)</p>
-          <input id="weight" type="text" />
+          <input
+            id="weight"
+            type="text"
+            onChange={(e) => {
+              setKg_mb(e.target.value);
+            }}
+          />
         </div>
         <p>Please, provide weight space in KG</p>
       </>
@@ -65,7 +130,9 @@ const AddProductPage = () => {
       <div className="navbar">
         <h1>Product Add</h1>
         <div className="buttons-contianer">
-          <button className="button button-add">Save</button>
+          <button className="button button-add" onClick={handleSubmit}>
+            Save
+          </button>
           <button className="button button-remove" id="delete-product-btn">
             Cancel
           </button>
@@ -75,15 +142,33 @@ const AddProductPage = () => {
         <form id="product_form">
           <div className="item">
             <p>SKU</p>
-            <input id="sku" type="text" />
+            <input
+              id="sku"
+              type="text"
+              onChange={(e) => {
+                setSku(e.target.value);
+              }}
+            />
           </div>
           <div className="item">
             <p>Name</p>
-            <input id="name" type="text" />
+            <input
+              id="name"
+              type="text"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
           </div>
           <div className="item">
             <p>Price</p>
-            <input id="price" type="text" />
+            <input
+              id="price"
+              type="text"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
           </div>
           <div className="item">
             <p>Type Switcher</p>
@@ -99,9 +184,78 @@ const AddProductPage = () => {
               ))}
             </select>
           </div>
-          {selected === "DVD" ? <DvdInput /> : ""}
-          {selected === "Furniture" ? <FurnitureInput /> : ""}
-          {selected === "Book" ? <BookInput /> : ""}
+          {selected === "1" ? (
+            <div>
+              <div className="item">
+                <p>Size (MB)</p>
+                <input
+                  id="size"
+                  type="text"
+                  onChange={(e) => {
+                    setKg_mb(e.target.value);
+                  }}
+                />
+              </div>
+              <p>Please, provide disc space in MB</p>
+            </div>
+          ) : (
+            ""
+          )}
+          {selected === "2" ? (
+            <>
+              <div className="item">
+                <p>Height (CM)</p>
+                <input
+                  id="height"
+                  type="text"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setHeight(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="item">
+                <p>Width (CM)</p>
+                <input
+                  id="width"
+                  type="text"
+                  onChange={(e) => {
+                    setWeight(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="item">
+                <p>Lenght (CM)</p>
+                <input
+                  id="lenght"
+                  type="text"
+                  onChange={(e) => {
+                    setLenght(e.target.value);
+                  }}
+                />
+              </div>
+              <p>Please, provide dimensions in HxWxL format</p>
+            </>
+          ) : (
+            ""
+          )}
+          {selected === "3" ? (
+            <>
+              <div className="item">
+                <p>Weight (KG)</p>
+                <input
+                  id="weight"
+                  type="text"
+                  onChange={(e) => {
+                    setKg_mb(e.target.value);
+                  }}
+                />
+              </div>
+              <p>Please, provide weight space in KG</p>
+            </>
+          ) : (
+            ""
+          )}
         </form>
       </div>
       <footer className="foot">
