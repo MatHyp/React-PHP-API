@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./HomePage.css";
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [itemsToRemove, setItemsToRemove] = useState([]);
 
   const getProducts = async () => {
     const response = await fetch(
@@ -14,12 +15,47 @@ const HomePage = () => {
     );
 
     const responseJson = await response.json();
-    setProducts(responseJson);
+
+    const updatedTable = responseJson.filter((data) => data.sku !== "");
+
+    setProducts(updatedTable);
   };
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  const handleCheckboxChange = (sku) => {
+    itemsToRemove.includes(sku);
+    if (itemsToRemove.includes(sku)) {
+      const updatedTable = itemsToRemove.filter((data) => data !== sku);
+      setItemsToRemove(updatedTable);
+    } else {
+      setItemsToRemove([...itemsToRemove, sku]);
+    }
+  };
+
+  const removeProducts = async () => {
+    console.log(itemsToRemove);
+    const response = await fetch(
+      "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/removeProducts",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          products: itemsToRemove.join(" "),
+        }),
+      }
+    );
+
+    const wynik = products.filter(
+      (element) => !itemsToRemove.includes(element.sku)
+    );
+
+    setProducts(wynik);
+    const responseJson = await response.json();
+    console.log(responseJson);
+  };
 
   return (
     <div>
@@ -29,7 +65,11 @@ const HomePage = () => {
           <a href="add-product">
             <button className="button button-add">ADD</button>
           </a>
-          <button className="button button-remove" id="delete-product-btn">
+          <button
+            className="button button-remove"
+            id="delete-product-btn"
+            onClick={removeProducts}
+          >
             MASS DELATE
           </button>
         </div>
@@ -38,7 +78,12 @@ const HomePage = () => {
         {products.map((post) => {
           return (
             <div className="product">
-              <input type="checkbox" className="delete-checkbox" />
+              <input
+                type="checkbox"
+                className="delete-checkbox"
+                id={post.sku}
+                onChange={(e) => handleCheckboxChange(post.sku)}
+              />
               <p>{post.sku}</p>
               <p>{post.name}</p>
               <p>{post.attribute}</p>

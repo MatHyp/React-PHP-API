@@ -20,10 +20,10 @@ const AddProductPage = () => {
   const [lenght, setLenght] = useState("");
 
   const handleSubmit = async (e) => {
-    let testt;
+    let attribute;
     selected === "1" || selected === "3"
-      ? (testt = kg_mb)
-      : (testt = `${height}x${weight}x${lenght}`);
+      ? (attribute = kg_mb)
+      : (attribute = `${height}x${weight}x${lenght}`);
 
     const response = await fetch(
       "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/addProducts",
@@ -36,93 +36,16 @@ const AddProductPage = () => {
           name: name,
           price: price,
           type: parseInt(selected),
-          attribute: testt,
+          attribute: attribute,
         }),
       }
     );
 
     const test = await response.json();
-
-    console.log(test);
   };
 
   const handleChange = (event) => {
     setSelected(event.target.value);
-  };
-
-  const DvdInput = () => {
-    return (
-      <>
-        {/* <div className="item">
-          <p>Size (MB)</p>
-          <input
-            id="size"
-            type="text"
-            onChange={(e) => {
-              setKg_mb(e.target.value);
-            }}
-          />
-        </div>
-        <p>Please, provide disc space in MB</p> */}
-      </>
-    );
-  };
-
-  const FurnitureInput = () => {
-    return (
-      <>
-        <div className="item">
-          <p>Height (CM)</p>
-          <input
-            id="height"
-            type="text"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setHeight(e.target.value);
-            }}
-          />
-        </div>
-        <div className="item">
-          <p>Width (CM)</p>
-          <input
-            id="width"
-            type="text"
-            onChange={(e) => {
-              setWeight(e.target.value);
-            }}
-          />
-        </div>
-        <div className="item">
-          <p>Lenght (CM)</p>
-          <input
-            id="lenght"
-            type="text"
-            onChange={(e) => {
-              setLenght(e.target.value);
-            }}
-          />
-        </div>
-        <p>Please, provide dimensions in HxWxL format</p>
-      </>
-    );
-  };
-
-  const BookInput = () => {
-    return (
-      <>
-        <div className="item">
-          <p>Weight (KG)</p>
-          <input
-            id="weight"
-            type="text"
-            onChange={(e) => {
-              setKg_mb(e.target.value);
-            }}
-          />
-        </div>
-        <p>Please, provide weight space in KG</p>
-      </>
-    );
   };
 
   return (
