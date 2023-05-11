@@ -4,7 +4,6 @@ class Product
 {
     public $mysqli;
 
-
     public function __construct()
     {
         $this->mysqli = new mysqli('localhost', 'root', '', 'scandiweb_db');
@@ -18,7 +17,11 @@ class Product
 
         while ($row = $result->fetch_assoc()) {
             array_push($products, array(
-                'name' => $row['name']
+                'sku' => $row['sku'],
+                'price' => $row['price'],
+                'attribute' => $row['attribute'],
+                'type' => $row['type'],
+                'name' => $row['name'],
             ));
         }
 
@@ -41,18 +44,21 @@ class Product
 
     public function massDelate()
     {
-        $productSku = filter_var($this->getData('name'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $productSku = filter_var($this->getData('products'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        return json_encode($productSku);
+        $array = explode(" ", $productSku);
+
+
+        foreach ($array as $productToRemove) {
+            $result = $this->mysqli->query("DELETE FROM `products` WHERE `sku` = '$productToRemove'");
+        }
+
+        return json_encode($result);
     }
 
     public function getData($value = '')
     {
         $json = json_decode(file_get_contents('php://input'), true);
-        if ($value === '')
-            return $json;
-        if (!$json[$value])
-            return NULL;
         return $json[$value];
     }
 }

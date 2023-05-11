@@ -1,9 +1,7 @@
 <?php
-
-
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-// header("Content-type: application/json; charset=UTF-8");
+header("Content-type: application/json; charset=UTF-8");
 
 require('./controllers/ProductController.php');
 
