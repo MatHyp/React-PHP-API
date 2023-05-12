@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./AddProductPage.css";
 
+import { useNavigate } from "react-router-dom";
+
 const AddProductPage = () => {
+  const navigate = useNavigate();
+
   const options = [
     { value: "", text: "Type Switcher" },
     { value: "1", text: "DVD" },
@@ -42,6 +46,11 @@ const AddProductPage = () => {
     );
 
     const test = await response.json();
+
+    if (test) {
+      console.log(test);
+      navigate("/");
+    }
   };
 
   const handleChange = (event) => {
@@ -56,17 +65,20 @@ const AddProductPage = () => {
           <button className="button button-add" onClick={handleSubmit}>
             Save
           </button>
-          <button className="button button-remove" id="delete-product-btn">
-            Cancel
-          </button>
+          <a href="/">
+            <button className="button button-remove" id="delete-product-btn">
+              Cancel
+            </button>
+          </a>
         </div>
       </div>
       <div className="form">
         <form id="product_form">
-          <div className="item">
+          <div className="item" id="sku">
             <p>SKU</p>
             <input
               id="sku"
+              name="sku"
               type="text"
               onChange={(e) => {
                 setSku(e.target.value);
@@ -77,6 +89,7 @@ const AddProductPage = () => {
             <p>Name</p>
             <input
               id="name"
+              name="name"
               type="text"
               onChange={(e) => {
                 setName(e.target.value);
@@ -87,6 +100,7 @@ const AddProductPage = () => {
             <p>Price</p>
             <input
               id="price"
+              name="price"
               type="text"
               onChange={(e) => {
                 setPrice(e.target.value);
@@ -95,7 +109,7 @@ const AddProductPage = () => {
           </div>
           <div className="item">
             <p>Type Switcher</p>
-            <select value={selected} onChange={handleChange}>
+            <select value={selected} id="productType" onChange={handleChange}>
               {options.map((option) => (
                 <option
                   key={option.value}
@@ -113,13 +127,14 @@ const AddProductPage = () => {
                 <p>Size (MB)</p>
                 <input
                   id="size"
+                  name="size"
                   type="text"
                   onChange={(e) => {
                     setKg_mb(e.target.value);
                   }}
                 />
               </div>
-              <p>Please, provide disc space in MB</p>
+              <p>Please, provide size in MB</p>
             </div>
           ) : (
             ""
@@ -130,6 +145,7 @@ const AddProductPage = () => {
                 <p>Height (CM)</p>
                 <input
                   id="height"
+                  name="height"
                   type="text"
                   onChange={(e) => {
                     console.log(e.target.value);
@@ -141,6 +157,7 @@ const AddProductPage = () => {
                 <p>Width (CM)</p>
                 <input
                   id="width"
+                  name="width"
                   type="text"
                   onChange={(e) => {
                     setWeight(e.target.value);
@@ -151,6 +168,7 @@ const AddProductPage = () => {
                 <p>Lenght (CM)</p>
                 <input
                   id="lenght"
+                  name="lenght"
                   type="text"
                   onChange={(e) => {
                     setLenght(e.target.value);
@@ -168,13 +186,14 @@ const AddProductPage = () => {
                 <p>Weight (KG)</p>
                 <input
                   id="weight"
+                  name="weight"
                   type="text"
                   onChange={(e) => {
                     setKg_mb(e.target.value);
                   }}
                 />
               </div>
-              <p>Please, provide weight space in KG</p>
+              <p>Please, provide weight in KG</p>
             </>
           ) : (
             ""

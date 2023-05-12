@@ -17,7 +17,7 @@ const HomePage = () => {
     const responseJson = await response.json();
 
     const updatedTable = responseJson.filter((data) => data.sku !== "");
-
+    console.log(updatedTable);
     setProducts(updatedTable);
   };
 
@@ -86,7 +86,14 @@ const HomePage = () => {
               />
               <p>{post.sku}</p>
               <p>{post.name}</p>
-              <p>{post.attribute}</p>
+              <p>{post.price}$</p>
+              <p>
+                {post.type == 1 ? "Weight" : ""}
+                {post.type == 2 ? "Dimension" : ""}
+                {post.type == 3 ? "Size" : ""}: {post.attribute}
+                {post.type == 3 ? " MB" : ""}
+                {post.type == 1 ? " KG" : ""}
+              </p>
             </div>
           );
         })}
