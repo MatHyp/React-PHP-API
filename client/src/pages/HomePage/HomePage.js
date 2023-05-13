@@ -40,7 +40,7 @@ const HomePage = () => {
       "http://testscandiwebsitemateusz.000webhostapp.com/removeProducts",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+
         body: JSON.stringify({
           products: itemsToRemove.join(" "),
         }),

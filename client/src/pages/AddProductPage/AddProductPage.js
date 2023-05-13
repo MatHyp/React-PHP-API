@@ -21,19 +21,18 @@ const AddProductPage = () => {
 
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-  const [lenght, setLenght] = useState("");
+  const [length, setLength] = useState("");
 
   const handleSubmit = async (e) => {
     let attribute;
     selected === "1" || selected === "3"
       ? (attribute = kg_mb)
-      : (attribute = `${height}x${weight}x${lenght}`);
+      : (attribute = `${height}x${weight}x${length}`);
 
     const response = await fetch(
       "http://testscandiwebsitemateusz.000webhostapp.com/addProducts",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
 
         body: JSON.stringify({
           sku: sku,
@@ -74,7 +73,7 @@ const AddProductPage = () => {
       </div>
       <div className="form">
         <form id="product_form">
-          <div className="item" id="sku">
+          <div className="item">
             <p>SKU</p>
             <input
               id="sku"
@@ -167,11 +166,11 @@ const AddProductPage = () => {
               <div className="item">
                 <p>Lenght (CM)</p>
                 <input
-                  id="lenght"
-                  name="lenght"
+                  id="length"
+                  name="length"
                   type="text"
                   onChange={(e) => {
-                    setLenght(e.target.value);
+                    setLength(e.target.value);
                   }}
                 />
               </div>
