@@ -22,38 +22,66 @@ const AddProductPage = () => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [length, setLength] = useState("");
+  const [allFiled, setAllFillerd] = useState(false);
 
+  const [text, setText] = useState("");
   const handleSubmit = async (e) => {
     let attribute;
     selected === "1" || selected === "3"
       ? (attribute = kg_mb)
       : (attribute = `${height}x${weight}x${length}`);
+    if (allFiled) {
+      const response = await fetch(
+        "http://testscandiwebsitemateusz.000webhostapp.com/addProducts",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            sku: sku,
+            name: name,
+            price: price,
+            type: parseInt(selected),
+            attribute: attribute,
+          }),
+        }
+      );
 
-    const response = await fetch(
-      "http://testscandiwebsitemateusz.000webhostapp.com/addProducts",
-      {
-        method: "POST",
+      const test = await response.json();
 
-        body: JSON.stringify({
-          sku: sku,
-          name: name,
-          price: price,
-          type: parseInt(selected),
-          attribute: attribute,
-        }),
+      if (test) {
+        console.log(test);
+        navigate("/");
       }
-    );
-
-    const test = await response.json();
-
-    if (test) {
-      console.log(test);
-      navigate("/");
+    } else {
+      setText("Fill up all fields.");
     }
   };
 
   const handleChange = (event) => {
     setSelected(event.target.value);
+  };
+
+  const tester = () => {
+    if (
+      sku != "" &&
+      name != "" &&
+      price != "" &&
+      kg_mb != "" &&
+      selected !== "2"
+    ) {
+      setAllFillerd(true);
+      setText("");
+    } else if (
+      sku != "" &&
+      name != "" &&
+      price != "" &&
+      height != "" &&
+      weight != "" &&
+      length != "" &&
+      selected === "2"
+    ) {
+      setAllFillerd(true);
+      setText("");
+    }
   };
 
   return (
@@ -81,6 +109,7 @@ const AddProductPage = () => {
               type="text"
               onChange={(e) => {
                 setSku(e.target.value);
+                tester();
               }}
             />
           </div>
@@ -92,6 +121,7 @@ const AddProductPage = () => {
               type="text"
               onChange={(e) => {
                 setName(e.target.value);
+                tester();
               }}
             />
           </div>
@@ -100,9 +130,10 @@ const AddProductPage = () => {
             <input
               id="price"
               name="price"
-              type="text"
+              type="number"
               onChange={(e) => {
                 setPrice(e.target.value);
+                tester();
               }}
             />
           </div>
@@ -127,9 +158,10 @@ const AddProductPage = () => {
                 <input
                   id="size"
                   name="size"
-                  type="text"
+                  type="number"
                   onChange={(e) => {
                     setKg_mb(e.target.value);
+                    tester();
                   }}
                 />
               </div>
@@ -145,10 +177,10 @@ const AddProductPage = () => {
                 <input
                   id="height"
                   name="height"
-                  type="text"
+                  type="number"
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setHeight(e.target.value);
+                    tester();
                   }}
                 />
               </div>
@@ -157,9 +189,10 @@ const AddProductPage = () => {
                 <input
                   id="width"
                   name="width"
-                  type="text"
+                  type="number"
                   onChange={(e) => {
                     setWeight(e.target.value);
+                    tester();
                   }}
                 />
               </div>
@@ -168,9 +201,10 @@ const AddProductPage = () => {
                 <input
                   id="length"
                   name="length"
-                  type="text"
+                  type="number"
                   onChange={(e) => {
                     setLength(e.target.value);
+                    tester();
                   }}
                 />
               </div>
@@ -186,9 +220,10 @@ const AddProductPage = () => {
                 <input
                   id="weight"
                   name="weight"
-                  type="text"
+                  type="number"
                   onChange={(e) => {
                     setKg_mb(e.target.value);
+                    tester();
                   }}
                 />
               </div>
@@ -198,6 +233,7 @@ const AddProductPage = () => {
             ""
           )}
         </form>
+        <p>{text}</p>
       </div>
       <footer className="foot">
         <p>Scandiweb Test assigment</p>

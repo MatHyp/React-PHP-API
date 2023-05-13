@@ -52,7 +52,6 @@ const HomePage = () => {
     );
 
     setProducts(wynik);
-    wynik = 0;
     setItemsToRemove([]);
     const responseJson = await response.json();
   };
