@@ -30,7 +30,7 @@ const AddProductPage = () => {
       : (attribute = `${height}x${weight}x${lenght}`);
 
     const response = await fetch(
-      "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/addProducts",
+      "http://testscandiwebsitemateusz.000webhostapp.com/addProducts",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

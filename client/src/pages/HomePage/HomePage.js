@@ -7,10 +7,9 @@ const HomePage = () => {
 
   const getProducts = async () => {
     const response = await fetch(
-      "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/products",
+      "http://testscandiwebsitemateusz.000webhostapp.com/products",
       {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
       }
     );
 
@@ -38,7 +37,7 @@ const HomePage = () => {
   const removeProducts = async () => {
     console.log(itemsToRemove);
     const response = await fetch(
-      "http://localhost/Scandiweb-Junior-Developer-Test-Task/server/removeProducts",
+      "http://testscandiwebsitemateusz.000webhostapp.com/removeProducts",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,8 +52,9 @@ const HomePage = () => {
     );
 
     setProducts(wynik);
+    wynik = 0;
+    setItemsToRemove([]);
     const responseJson = await response.json();
-    console.log(responseJson);
   };
 
   return (
@@ -70,14 +70,14 @@ const HomePage = () => {
             id="delete-product-btn"
             onClick={removeProducts}
           >
-            MASS DELATE
+            MASS DELETE
           </button>
         </div>
       </div>
       <div className="products-list">
         {products.map((post) => {
           return (
-            <div className="product">
+            <div className="product" key={post.sku}>
               <input
                 type="checkbox"
                 className="delete-checkbox"
