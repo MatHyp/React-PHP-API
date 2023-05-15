@@ -47,8 +47,9 @@ const AddProductPage = () => {
 
       const test = await response.json();
 
-      if (test) {
-        console.log(test);
+      if (test == "That sku exists") {
+        setText("That sku exists");
+      } else {
         navigate("/");
       }
     } else {

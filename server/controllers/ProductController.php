@@ -37,6 +37,12 @@ class Product
         $productAttribute = filter_var($this->getData('attribute'), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
+        $checkThatExist = $this->mysqli->query("SELECT * FROM products WHERE sku = '$productSku'");
+
+        if (mysqli_num_rows($checkThatExist) > 0) {
+            return json_encode('That sku exists');
+        }
+
         $result = $this->mysqli->query("INSERT INTO `products` (`sku`, `name`, `price`, `type`, `attribute`) VALUES ('$productSku',  '$productName', '$productPrice', '$productType', '$productAttribute')");
 
         return json_encode($result);
